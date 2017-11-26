@@ -10,6 +10,7 @@ select title,text,created,category,tags from {$prefix}contents c,
 (select cid,m.name category from {$prefix}metas m,{$prefix}relationships r where m.mid=r.mid and m.type='category') t2
 where t1.cid=t2.cid and c.cid=t1.cid
 TEXT;
+$db->query('SET NAMES "utf8"');
 $res = $db->query($sql);
 if ($res) {
     if ($res->num_rows > 0) {
@@ -21,6 +22,7 @@ title: {$r->title}
 categories: {$r->category}
 tags: [{$r->tags}]
 date: {$_c}
+toc: true
 ---
 {$_t}
 TMP;
